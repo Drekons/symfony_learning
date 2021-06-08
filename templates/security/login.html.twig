@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Авторизация  - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% if error %}
+            <div class="col-12">
+                <div class="alert alert-danger" role="alert">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                Вы уже авторизованы как <b>{{ app.user.username }}</b>, <a href="{{ path('app_logout') }}">Выйти</a>
+            </div>
+        {% else %}
+            <div class="col-sm-12">
+
+                <form class="form-signin" method="post">
+                    <h1 class="h3 mb-3 font-weight-normal">Пожалуйста, авторизуйтесь</h1>
+
+                    <div class="form-group">
+                        <label for="inputEmail" class="sr-only">Email адрес</label>
+                        <input
+                                type="email"
+                                id="inputEmail"
+                                name="email"
+                                value="{{ last_username }}"
+                                class="form-control"
+                                placeholder="Ваш Email..."
+                                required
+                                autofocus
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword" class="sr-only">Пароль</label>
+                        <input
+                                type="password"
+                                id="inputPassword"
+                                name="password"
+                                class="form-control"
+                                placeholder="Ваш Пароль..."
+                                required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="_remember_me"> Запомнить меня
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}">
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

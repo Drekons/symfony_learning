@@ -1,0 +1,14 @@
+symfony_skillbox_homework:
+
+  # Стратегия производства юнитов по умолчанию по силе (SymfonySkillbox\HomeworkBundle\StrengthStrategy)
+  strategy: null
+
+  # Список доступных юнитов (SymfonySkillbox\HomeworkBundle\BaseUnitProvider)
+  unit_provider: null
+
+  # Разрешено ли производство солдат
+  enable_solder: true
+
+  # Разрешено ли производство лучников
+  enable_archer: true
+

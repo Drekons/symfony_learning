@@ -1,0 +1,38 @@
+<form>
+    <div class="input-group mb-3">
+        <input type="text"
+               name="q"
+               class="form-control"
+               placeholder="Найти..."
+               value="{{ app.request.query.get('q') }}"
+        >
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-secondary"><i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
+    <div class="float-right mb-3">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="search_limit">Выводить по:</label>
+            </div>
+            <select name="limit" id="search_limit" class="form-control">
+                {% for variant in limit_variants %}
+                    <option {{ limit == variant ? 'selected' : '' }}
+                            value="{{ variant }}">{{ variant }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="mb-3 mt-4 col-4 pl-0">
+        {% if withOutDelete is empty %}
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input"
+                           name="showDeleted" {% if app.request.query.has('showDeleted') %} checked {% endif %}>
+                    Показать удаленные
+                </label>
+            </div>
+        {% endif %}
+    </div>
+</form>

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% use 'form/custom_email.html.twig' %}
+
+{% block title %}Регистрация  - {{ parent() }}{% endblock %}
+{% form_theme registrationForm 'form/custom_email.html.twig' %}
+
+{% block body %}
+    <div class="row">
+
+
+        <div class="col-sm-12">
+
+            {% if showError | default %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-danger" role="alert">
+                            Не все условия регистрации выполнены
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {{ form_start(registrationForm, { attr: {class: 'form-signin'} }) }}
+
+            <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+
+            {{ form_errors(registrationForm.email) }}
+            {{ form_row(registrationForm.email, {
+                attr: {placeholder: 'Ваш Email...'},
+                label_attr: {class: 'sr-only'}
+            }) }}
+
+            {{ form_errors(registrationForm.firstName) }}
+            {{ form_row(registrationForm.firstName, {
+                attr: {placeholder: 'Ваше Имя...'},
+                label_attr: {class: 'sr-only'}
+            }) }}
+
+            {{ form_errors(registrationForm.plainPassword) }}
+            {{ form_row(registrationForm.plainPassword, {
+                attr: {placeholder: 'Ваш Пароль...'},
+                label_attr: {class: 'sr-only'}
+            }) }}
+
+            {{ form_errors(registrationForm.agreeTerms) }}
+            {{ form_row(registrationForm.agreeTerms, {
+                label: 'Согласен с условиями'
+            }) }}
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+            {{ form_end(registrationForm) }}
+
+        </div>
+
+    </div>
+{% endblock %}

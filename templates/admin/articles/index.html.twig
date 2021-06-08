@@ -1,0 +1,49 @@
+{% extends 'base.content.html.twig' %}
+
+{% block title %}Управление статьями{% endblock %}
+
+{% block content %}
+    <div class="float-right mt-2">
+        <a href="{{ path('app_admin_articles_create') }}" class="btn btn-primary">Создать новую статью</a>
+    </div>
+    <h1>Управление статьями</h1>
+
+    {% include 'admin/blocks/search_filter.html.twig' with { withOutDelete: true } %}
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Изображение</th>
+            <th>Статья</th>
+            <th>Описание</th>
+            <th>Автор</th>
+            <th>Опубликована</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in pagination %}
+            <tr>
+                <td>
+                    {% if (item.imageFilename) %}
+                        <img src="{{ asset(item.imagePath) }}" height="50px"/>
+                    {% endif %}
+                </td>
+                <td><a href="{{ path('app_admin_article_edit', { id: item.id}) }}">{{ item.title }}</a></td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.author.firstName }}</td>
+                <td>
+                    <i title="{{ item.publishedAt ? item.publishedAt | ago }}"
+                       class="fas {% if item.isPublished %}fa-check text-primary{% else %}a-times text-warning{% endif %}"></i>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" class="text-center">Нет комментариев</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(pagination) }}
+
+{% endblock %}

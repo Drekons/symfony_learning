@@ -1,0 +1,44 @@
+{% extends 'email/base.html.twig' %}
+
+{% block content %}
+
+    <table class="head-wrap">
+        <tr>
+            <td></td>
+            <td class="header container">
+
+                <div class="content">
+                    <table>
+                        <tr>
+                            <td><h6 class="collapse">Статистика администратора</h6></td>
+                            <td align="right"><a class="collapse" href="{{ url('app_homepage') }}">Spill-Coffee-On-The-Keyboard</a></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </td>
+            <td></td>
+        </tr>
+    </table>
+
+    <table class="body-wrap">
+        <tr>
+            <td></td>
+            <td class="container">
+
+                <div class="content">
+                    <table>
+                        <tr>
+                            <td>
+                                <p class="lead">Отчёт в приложение</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </td>
+            <td></td>
+        </tr>
+    </table>
+
+{% endblock %}

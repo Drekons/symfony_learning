@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-12 col-xl-8">
+                    {% for article in articles %}
+                        <div class="article-container mb-2">
+                            <div class="row no-gutters border flex-md-row p-3 mb-4 shadow-sm">
+                                <div class="col-auto d-block">
+                                    {% if article.imageFilename %}
+                                        <img class="article-img" src="{{ article.imageFilename | imagine_filter('articles_preview') }}">
+                                    {% endif %}
+                                </div>
+                                <a class="col px-4 d-flex flex-column article-item"
+                                   href="{{ path('app_article_show', { slug: article.slug}) }}">
+                                    <h5 class="mb-2">{{ article.title }}</h5>
+                                    <div class="d-flex mb-2">
+                                        <div class="text-muted align-self-center">
+                                            <img
+                                                    class="article-author-img rounded-circle"
+                                                    src="{{ article.author.avatarPath(20) }}">
+                                            {{ article.author.firstName }}
+                                        </div>
+                                        <div class="text-muted align-self-center ml-3"><i
+                                                    class="fas fa-clock size-is-"></i>
+                                            {{ article.publishedAt ? article.publishedAt | ago }}
+                                        </div>
+                                    </div>
+                                    <div class="mb-2 d-flex">
+                                        <span class="badge badge-primary mr-2">
+                                            <i class="fas fa-comment"></i>
+                                            {{ article.comments | length }}
+                                        </span>
+                                        {% include 'article/blocks/article_tags.htmk.twig' with { tags: article.tags } %}
+                                    </div>
+                                    <div class="mb-2 text-muted">
+                                        <p>{{ article.description }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-md-12 col-xl-4">
+                    <div class="text-center bg-primary text-white py-1 border border-bottom-0">
+                        <h4 class="mb-0">Последние комменты</h4>
+                    </div>
+                    <div class="quotes-container bg-white shadow-sm border border-top-0 pb-2 pt-2 px-5">
+                        {{ render(controller('App\\Controller\\PartialController::lastComments')) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

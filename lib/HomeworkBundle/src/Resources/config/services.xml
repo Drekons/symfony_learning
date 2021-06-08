@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="symfony_skillbox.homework" class="SymfonySkillbox\HomeworkBundle\HomeworkBundle" public="true">
+            <argument type="service" id="symfony_skillbox_homework.strategy" />
+            <argument type="service" id="symfony_skillbox_homework.unit_provider" />
+        </service>
+        <service id="SymfonySkillbox\HomeworkBundle\HomeworkBundle" alias="symfony_skillbox.homework" public="false"/>
+
+        <service id="symfony_skillbox_homework.strategy_strength" class="SymfonySkillbox\HomeworkBundle\StrengthStrategy" public="false"/>
+        <service id="symfony_skillbox_homework.strategy" alias="symfony_skillbox_homework.strategy_strength" public="false" />
+
+        <service id="symfony_skillbox_homework.base_unit_provider" class="SymfonySkillbox\HomeworkBundle\BaseUnitProvider" public="false" />
+        <service id="symfony_skillbox_homework.unit_provider" alias="symfony_skillbox_homework.base_unit_provider" public="false" />
+
+        <service id="symfony_skillbox_homework.strategy_health" class="SymfonySkillbox\HomeworkBundle\HealthStrategy" public="false"/>
+        <service id="symfony_skillbox_homework.unit_factory" class="SymfonySkillbox\HomeworkBundle\UnitFactory"
+                 public="false">
+            <argument type="service" id="symfony_skillbox_homework.strategy"/>
+            <argument type="service" id="symfony_skillbox_homework.unit_provider"/>
+        </service>
+
+        <service id="SymfonySkillbox\HomeworkBundle\Command\ProduceUnits">
+            <tag name="console.command" command="symfony-skillbox-homework:produce-units"/>
+            <argument type="service" id="symfony_skillbox_homework.unit_factory" />
+        </service>
+    </services>
+</container>

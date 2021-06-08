@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-12">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card border mb-4 shadow-sm bg-white">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <img src="{{ app.user.avatarPath }}" style="width: 100%">
+                                </div>
+                                <div class="col-sm-10">
+                                    <div class="d-flex justify-content-between" style="height: 100%;">
+                                        <h3 class="align-self-center mb-0">Привет, {{ app.user.firstName }}</h3>
+                                        <a class="btn btn-labeled btn-info align-self-center" href="#">
+                                            <span class="btn-label"><i class="fas fa-edit"></i></span> Профиль
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row overview">
+                                <div class="col-md-4 user-pad text-center">
+                                    <h3>Кружек опрокинуто на клавиатуру</h3>
+                                    <h4 class="text-muted">3,892</h4>
+                                </div>
+                                <div class="col-md-4 user-pad text-center">
+                                    <h3>Комментариев</h3>
+                                    <h4 class="text-muted">184</h4>
+                                </div>
+                                <div class="col-md-4 user-pad text-center">
+                                    <h3>Глобальных переменных использовано</h3>
+                                    <h4 class="text-muted">1,910</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.content.html.twig' %}
+
+{% block title %}Генерация контента статьи{% endblock %}
+
+{% block content %}
+    <div class="mb-2">
+        <h1>Генерация контента статьи</h1>
+
+        <form>
+            <div class="form-group">
+                <label for="paragraphs">Количество параграфов</label>
+                <input type="number" class="form-control" name="paragraphs" id="paragraphs"
+                       value="{{ app.request.query.get('paragraphs') }}" placeholder="Укажите количество параграфов">
+            </div>
+            <div class="form-group">
+                <label for="word">Вставляемое слово</label>
+                <input type="text" class="form-control" name="word" id="word"
+                       value="{{ app.request.query.get('word') }}" placeholder="Укажите вставляемое слово">
+            </div>
+            <div class="form-group">
+                <label for="wordsCount">Количество повторений вставляемого слова</label>
+                <input type="number" class="form-control" name="wordsCount" id="wordsCount"
+                       value="{{ app.request.query.get('wordsCount') }}"
+                       placeholder="Укажите количество повторений вставляемого слова">
+            </div>
+            <button type="submit" class="btn btn-primary">Генерировать</button>
+        </form>
+
+        {% if text %}
+            <div class="card mt-3">
+                <div class="card-header">Html</div>
+                <div class="card-body">
+                    {{ text | cached_markdown }}
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-header">Markdown</div>
+                <div class="card-body">
+                    {{ text }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

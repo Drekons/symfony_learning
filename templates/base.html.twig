@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/ico" sizes="16x16" href="{{ asset('favicon.ico') }}">
+    <meta name="keywords" content="{% block keywords %}{% endblock %}"/>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+              integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    <title>{% block title %}Spill-Coffee-On-The-Keyboard{% endblock %}</title>
+</head>
+<body>
+{% if is_granted('IS_IMPERSONATOR') %}
+    <div class="alert alert-warning">
+        Имперсонализация включена. <a href="{{ path('app_homepage', { '_switch_user': '_exit' }) }}">Выйти</a>
+    </div>
+{% endif %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container py-2">
+
+        <a class="navbar-brand" href="/"><i class="fas fa-coffee text-muted"></i> Spill-Coffee-On-The-Keyboard <i
+                    class="fas fa-keyboard text-muted"></i></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('app_homepage') }}"><i class="fas fa-home"></i></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="nav-profile-img rounded-circle" src="{{ app.user.avatarPath(40) }}">
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ path('app_account') }}">Профиль</a>
+                            {% if is_granted('ROLE_ADMIN_ARTICLE') %}
+                                <a class="dropdown-item" href="{{ path('app_admin_articles_create') }}">Создать
+                                    статью</a>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="dropdown-item" href="{{ path('app_admin_index') }}">Админ</a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">Выйти</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item d-flex my-auto">
+                        <a class="btn btn-outline-light my-2 my-sm-0 mr-2" href="{{ path('app_login') }}">Войти</a>
+                        <a class="btn btn-outline-light my-2 my-sm-0" href="{{ path('app_register') }}">Регистрация</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    {% if app.session.flashBag.peek('flash_message')|length > 0 %}
+        <div class="row">
+            <div class="col-12">
+                {% for message in app.flashes('flash_message') %}
+                    <div class="alert alert-{{ message.type }}" role="alert">
+                        <div>{{ message.message }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% block body %}{% endblock %}
+</div>
+<footer class="footer bg-white">
+    <div class="container text-center">
+        <span class="text-muted"><b>Spill-Coffee-On-The-Keyboard</b> - учебный проект для домашнего задания по курсу Symfony</span>
+    </div>
+</footer>
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+</body>
+</html>

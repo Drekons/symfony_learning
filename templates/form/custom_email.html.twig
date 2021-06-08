@@ -1,0 +1,8 @@
+{% block email_row %}
+    <div class="input-group mb-2">
+        <div class="input-group-prepend">
+            <div class="input-group-text">{{ symbol }}</div>
+        </div>
+        {{ block('email_widget') }}
+    </div>
+{% endblock %}

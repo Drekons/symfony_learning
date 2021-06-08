@@ -1,0 +1,9 @@
+{{ form_start(articleForm) }}
+    {% if articleForm.vars.data.imageFilename %}
+        <a href="{{ uploaded_asset('article_uploads_url', articleForm.vars.data.imageFilename)}}" target="_blank">
+            <img src="{{ articleForm.vars.data.imageFilename | imagine_filter('articles_preview') }}" height="100">
+        </a>
+    {% endif %}
+    {{ form_widget(articleForm) }}
+    <button type="submit" class="btn btn-primary">{{ btnName }}</button>
+{{ form_end(articleForm) }}

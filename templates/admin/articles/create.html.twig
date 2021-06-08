@@ -1,0 +1,23 @@
+{% extends 'base.content.html.twig' %}
+
+{% block title %}Управление статьями - Создание статьи{% endblock %}
+
+{% block content %}
+
+    {% if showError | default %}
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" role="alert">
+                    Не удалось создать статью
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <div class="mb-2">
+        <h1>Управление статьями - Создание статьи</h1>
+
+        {% include 'admin/articles/blocks/form.html.twig' with { btnName : 'Создать' } %}
+    </div>
+{% endblock %}

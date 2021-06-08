@@ -1,0 +1,8 @@
+{% for comment in comments %}
+    <div class="border-bottom mb-3">
+        <div class="h4 text-left"># {{ comment.article.title }}</div>
+        <p>
+            <i class="far fa-comment text-secondary"></i> "{{ comment.content }}"
+            <br> — <a href="#">{{ comment.authorName }}</a></p>
+    </div>
+{% endfor %}

@@ -1,0 +1,19 @@
+{
+    "name": "symfony-skillbox/homework-bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Drek",
+            "email": "drek2005@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "SymfonySkillbox\\HomeworkBundle\\": "src"
+        }
+    }
+}
